@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package pbA;
+
+option go_package = "./";
+
+service AdminService {
+    rpc AdminLogin(AdminRequest) returns (AdminResponse);
+    rpc CreateUserFn(User) returns (AdminResponse);
+    rpc FindUserByEmailFn(UserRequest) returns (User);
+    rpc FindUserByIDFn(UserID) returns (User);
+    rpc FindAllUsersFn(NoParam) returns (UserList);
+    rpc EditUserFn(User) returns (User);
+    rpc DeleteUserFn(UserID) returns (AdminResponse);
+}
+
+message NoParam{}
+
+message User {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+    string role = 4;
+}
+
+message UserList {
+    repeated User users = 1;
+}
+
+message AdminResponse {
+    string status = 1;
+    string error = 2;
+    string message = 3;
+}
+
+message AdminRequest {
+    string username = 1;
+    string password = 2;
+    string role = 3;
+}
+
+message UserRequest {
+    string email = 1;
+}
+
+message UserID {
+    uint32 id = 1;
+}
